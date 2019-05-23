@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RestaurantSearchResultComponent from './../components/RestaurantSearchResultComponent';
+import RestaurantSearchResult from './../components/RestaurantSearchResult';
 
 const SearchContainer = () => {
   const [restaurantList, setRestaurantList] = useState([]);
@@ -12,17 +12,11 @@ const SearchContainer = () => {
 
     fetch(`http://localhost:3000/yelp/restaurantName/${data.name}/restaurantZip/${data.zip}`,
       { method: 'GET' })
-      .then(resp => {
-        console.log('resp', resp);
-        return resp.json()
-      }
-      ).then(res2 => {
-        setRestaurantList(res2);
-      });
+      .then(res => res.json())
+      .then(res => setRestaurantList(res));
   };
 
   function likeRestaurant(data) {
-    console.log('yo data here:', data);
     fetch('http://localhost:3000/likes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -37,9 +31,8 @@ const SearchContainer = () => {
   };
 
   const searchResultComponents = [];
-  console.log(restaurantList)
   for (const restaurant of restaurantList) {
-    searchResultComponents.push(<RestaurantSearchResultComponent key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
+    searchResultComponents.push(<RestaurantSearchResult key={restaurant.id} data={restaurant} likeRestaurant={likeRestaurant.bind(this)} />)
   };
 
   return (
