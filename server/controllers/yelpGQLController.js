@@ -5,7 +5,8 @@ const searchLimit = 18;
 const yelpGQLController = {};
 
 yelpGQLController.searchYelpGQL = (req, res) => {
-  const { name, zip } = req.params;
+  const { name, zip } = req.body;
+  console.log(req.body);
   if (!name || !zip) res.json({});
 
   const searchInput = `{
@@ -48,7 +49,7 @@ yelpGQLController.searchYelpGQL = (req, res) => {
   })
     .then(res => res.json())
     .then((data) => {
-      dev
+      // dev
       if (data.data.search === null) return res.status(404).send();
       return res.send(data.data.search.business)
     })

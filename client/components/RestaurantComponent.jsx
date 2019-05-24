@@ -68,7 +68,7 @@ const renderStatus = (isOpen) => {
 const RestaurantComponent  = ({ _id, name, rating, displayAddress, price, reviewCount, deleteLikeMutation, getLikesQuery, userId, longitude, latitude }) => {
   let isOpen = true;
   return (
-    <article>
+    <article className="card">
       <CardHeader>
         <CardName>{name}</CardName>
           <svg className="unlike" onClick={() => {
